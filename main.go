@@ -10,5 +10,5 @@ package main
 
 // program entry point
 func main() {
-  startServer()
+	startServer()
 }

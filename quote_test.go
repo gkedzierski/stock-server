@@ -9,16 +9,16 @@
 package main
 
 import (
-  "testing"
+	"testing"
 )
 
 func TestQuoteDataFetch(t *testing.T) {
-  dataObject, err := fetchQuote("MSFT")
-  if err != nil {
-    t.Errorf("Fetching quote data failed: %v", err)
-  }
+	dataObject, err := fetchQuote("MSFT")
+	if err != nil {
+		t.Errorf("Fetching quote data failed: %v", err)
+	}
 
-  if dataObject.Name != "Microsoft Corporation" {
-    t.Error("Correct data for MSFT could not be fetched.")
-  }
+	if dataObject.Name != "Microsoft Corporation" {
+		t.Error("Correct data for MSFT could not be fetched.")
+	}
 }

@@ -9,25 +9,25 @@
 package main
 
 import (
-  "net/http"
-  "encoding/json"
+	"encoding/json"
+	"net/http"
 )
 
 // fetches quote using Yahoo Finance API and returns hydrated
 // structure
 func fetchQuote(symbol string) (*YahooQuoteResourceFields, error) {
-  // make a HTTP request
-  res, err := http.Get("http://finance.yahoo.com/webservice/v1/symbols/" + symbol + "/quote?format=json&view=detail")
-  if err != nil {
-    return nil, err
-  }
+	// make a HTTP request
+	res, err := http.Get("http://finance.yahoo.com/webservice/v1/symbols/" + symbol + "/quote?format=json&view=detail")
+	if err != nil {
+		return nil, err
+	}
 
-  // decode JSON - hydrate structure
-  var decodedResponse = new(YahooQuoteResponse)
-  err = json.NewDecoder(res.Body).Decode(decodedResponse)
-  if err != nil {
-    return nil, err
-  }
+	// decode JSON - hydrate structure
+	var decodedResponse = new(YahooQuoteResponse)
+	err = json.NewDecoder(res.Body).Decode(decodedResponse)
+	if err != nil {
+		return nil, err
+	}
 
-  return &decodedResponse.List.Resources[0].Resource.Fields, nil
+	return &decodedResponse.List.Resources[0].Resource.Fields, nil
 }

@@ -9,32 +9,32 @@
 package main
 
 import (
-  "github.com/gorilla/mux"
-  "net/http"
-  "net/http/httptest"
-  "testing"
+	"github.com/gorilla/mux"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 )
 
 var m *mux.Router
 var w *httptest.ResponseRecorder
 
 func setup() {
-  m = mux.NewRouter()
-  addEndpointHandlers(m)
+	m = mux.NewRouter()
+	addEndpointHandlers(m)
 
-  w = httptest.NewRecorder()
+	w = httptest.NewRecorder()
 }
 
 func TestInvalidEndpoint(t *testing.T) {
-  setup()
+	setup()
 
-  req, err := http.NewRequest("GET", "/nonexistent/endpoint", nil)
-  if err != nil {
-    t.Fatal("Creating 'GET /nonexistent/endpoint' request failed.")
-  }
-  m.ServeHTTP(w, req)
+	req, err := http.NewRequest("GET", "/nonexistent/endpoint", nil)
+	if err != nil {
+		t.Fatal("Creating 'GET /nonexistent/endpoint' request failed.")
+	}
+	m.ServeHTTP(w, req)
 
-  if w.Code != http.StatusNotFound {
-    t.Errorf("/nonexistent/endpoint endpoint didn't return %v", http.StatusNotFound)
-  }
+	if w.Code != http.StatusNotFound {
+		t.Errorf("/nonexistent/endpoint endpoint didn't return %v", http.StatusNotFound)
+	}
 }
